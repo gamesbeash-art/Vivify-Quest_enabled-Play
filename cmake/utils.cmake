@@ -1,4 +1,5 @@
 # Utility macros for CMake build
+
 MACRO(RECURSE_FILES return_list filter)
 	FILE(GLOB_RECURSE new_list ${filter})
 	SET(file_list "")
