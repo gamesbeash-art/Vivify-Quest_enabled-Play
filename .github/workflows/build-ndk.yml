@@ -14,10 +14,15 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
+    - name: Setup Android NDK
+      uses: nttld/setup-ndk@v1
+      with:
+        ndk-version: r21e
+    
     - name: Install QPM
       run: |
-        wget https://github.com/QuestPackageManager/QPM.CLI/releases/download/v0.17.5/qpm-0.17.5-linux.zip
-        unzip qpm-0.17.5-linux.zip
+        wget -O qpm.zip https://github.com/QuestPackageManager/QPM.CLI/releases/latest/download/qpm-linux.zip
+        unzip qpm.zip
         chmod +x qpm
         sudo mv qpm /usr/local/bin/
     
