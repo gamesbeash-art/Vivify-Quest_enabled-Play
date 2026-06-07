@@ -663,7 +663,7 @@ private:
             }
           });
         } else {
-          SongCore::API::PlayButton::EnablePlayButton("Vivify", "This map does not support your game version.");
+          SongCore::API::PlayButton::EnablePlayButton("Vivify");
         }
       } else {
         SongCore::API::PlayButton::EnablePlayButton("Vivify");
