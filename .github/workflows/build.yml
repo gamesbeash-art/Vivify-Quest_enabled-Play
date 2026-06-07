@@ -12,22 +12,42 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
     
     - name: Install dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y cmake ninja-build
     
+    - name: Setup QPM
+      run: |
+        cd /tmp
+        wget https://github.com/sc2ad/qpm.cli/releases/download/v0.11.8/qpm-linux
+        chmod +x qpm-linux
+        sudo mv qpm-linux /usr/local/bin/qpm
+    
+    - name: Restore dependencies with QPM
+      run: |
+        qpm restore
+    
+    - name: Create build directory
+      run: mkdir -p build
+    
+    - name: Configure with CMake
+      run: |
+        cd build
+        cmake -GNinja ..
+    
     - name: Build
       run: |
-        mkdir build
         cd build
-        cmake ..
         cmake --build .
     
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: mod
+        name: vivify-mod
         path: build/*.qmod
+        if-no-files-found: ignore
