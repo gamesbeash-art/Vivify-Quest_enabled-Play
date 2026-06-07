@@ -13,8 +13,6 @@ set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 add_compile_options(-frtti -fexceptions -fvisibility=hidden -fPIE -fPIC)
 
 # Include. Include order matters!
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/utils.cmake)
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/qpm.cmake)
 
 if(${CMAKE_BUILD_TYPE} STREQUAL "RELEASE" OR ${CMAKE_BUILD_TYPE} STREQUAL "RelWithDebInfo" OR ${CMAKE_BUILD_TYPE} STREQUAL "MinSizeRel")
         # Better optimizations
