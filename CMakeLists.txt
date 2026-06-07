@@ -12,8 +12,9 @@ set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 add_compile_options(-frtti -fexceptions -fvisibility=hidden -fPIE -fPIC)
 
-# Project setup
-project(vivify VERSION 1.0.0)
+# Include CMake utilities FIRST
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/utils.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/qpm.cmake)
 
 # Compile flags
 if(CMAKE_BUILD_TYPE STREQUAL "RELEASE" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo" OR CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
@@ -26,12 +27,15 @@ if(CMAKE_BUILD_TYPE STREQUAL "DEBUG" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInf
     add_compile_options(-g)
 endif()
 
+# Project setup
+project(vivify VERSION ${MOD_VERSION})
+
 add_compile_definitions(MOD_ID="${CMAKE_PROJECT_NAME}")
 add_compile_definitions(VERSION="${CMAKE_PROJECT_VERSION}")
 
 # Get source files
-file(GLOB_RECURSE cpp_file_list "${SOURCE_DIR}/*.cpp")
-file(GLOB_RECURSE c_file_list "${SOURCE_DIR}/*.c")
+RECURSE_FILES(cpp_file_list ${SOURCE_DIR}/*.cpp)
+RECURSE_FILES(c_file_list ${SOURCE_DIR}/*.c)
 
 # Create library
 add_library(${CMAKE_PROJECT_NAME} SHARED ${cpp_file_list} ${c_file_list})
@@ -41,3 +45,4 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE -llog)
 
 # Include directories
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${INCLUDE_DIR})
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${SHARED_DIR})
