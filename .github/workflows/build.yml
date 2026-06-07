@@ -24,7 +24,7 @@ jobs:
     - name: Setup QPM
       run: |
         cd /tmp
-        wget https://github.com/sc2ad/qpm.cli/releases/download/v0.11.8/qpm-linux
+        wget https://github.com/sc2ad/qpm.cli/releases/download/v0.11.7/qpm-linux
         chmod +x qpm-linux
         sudo mv qpm-linux /usr/local/bin/qpm
     
